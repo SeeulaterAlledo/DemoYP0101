@@ -1,0 +1,67 @@
+﻿<Window x:Class="DemoYP0101.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoYP0101"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="480*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="FullUserName"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
+               Margin="20 10"/>
+
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl Name="ReportList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                               
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock FontWeight="SemiBold">
+                                    <Run Text="{Binding Users.Name}"/>
+                                    <Run Text=" | "/>
+                                    <Run Text="{Binding AdressId}"/>
+                                    <Run Text=" | "/>
+                                    <Run Text="{Binding Flat}"/>
+                                    <Run Text=" | "/>
+                                    <Run Text="{Binding Accrued}"/>
+                                    <Run Text=" | "/>
+                                    <Run Text="{Binding Paid}"/>
+                                    </TextBlock>
+
+                                    
+                                </StackPanel>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Button x:Name="LogOutButton"
+            Content="Выйти"
+            Grid.Row="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,0"
+            Click="LogOutButton_Click"/>
+
+    </Grid>
+</Window>

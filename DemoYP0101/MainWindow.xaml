@@ -7,8 +7,30 @@
         mc:Ignorable="d"
         Title="OOO Управляющая компания жилого фонда" Height="450" Width="800">
     <Grid>
-        
-        
-        
+
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Margin="60" >
+                <TextBlock Text="Авторизация"
+                       Margin="40 10"/>
+
+                <TextBox Name="LoginEnter"
+                     Margin="20 10"/>
+
+                <PasswordBox Name="PasswordEnter"
+                     Margin="20 10"/>
+
+                <Button Name="LoginButton"
+                    Content="Войти"
+                    Margin="40 10"
+                    Click="LoginButton_click"/>
+
+                <TextBlock HorizontalAlignment="Center"
+                       Text="Войти как гость"
+                       FontSize="15"
+                       Foreground="Blue"
+                       MouseDown="TextBloxk_MouseDown"/>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </Window>

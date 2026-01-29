@@ -15,20 +15,18 @@ namespace DemoYP0101
     
     public partial class Entities : DbContext
     {
-        public static Entities _context;
-
+        public Entities()
+            : base("name=Entities")
+        {
+        }
+        private static Entities _context;
         public static Entities Getcontext()
         {
             if (_context == null)
             {
                 _context = new Entities();
             }
-
             return _context;
-        }
-        public Entities()
-            : base("name=Entities")
-        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -42,7 +40,6 @@ namespace DemoYP0101
         public DbSet<ListHousingStock> ListHousingStock { get; set; }
         public DbSet<PaymentReport> PaymentReport { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Users> Users { get; set; }
     }
 }

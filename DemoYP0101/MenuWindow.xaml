@@ -7,47 +7,21 @@
         mc:Ignorable="d"
         Title="Меню" Height="470" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150*"/>
-            <RowDefinition Height="480*"/>
-            <RowDefinition Height="50*"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Button x:Name="ListHousingStockButton"
-    Content="Жилой фонд"
-    Grid.Row="1"
-    VerticalAlignment="Center"
-    HorizontalAlignment="Left"
-    Margin="50,0,0,0"
-    Click="ListHousingStockButton_Click" Width="147"/>
-        <Button x:Name="ArrearsButton"
-    Content="Задолженности"
-    Grid.Row="1"
-    VerticalAlignment="Top"
-    HorizontalAlignment="Left"
-    Margin="50,205,0,0"
-    Click="ArrearsButton_Click" Width="147"/>
-        <Button x:Name="ReportButton"
-    Content="Отчеты"
-    Grid.Row="1"
-    VerticalAlignment="Top"
-    HorizontalAlignment="Left"
-    Margin="50,75,0,0"
-    Click="ReportButton_Click" Width="147"/>
-        <Button x:Name="LogOutButton"
-            Content="Выйти"
-            Grid.Row="1"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left"
-            Margin="50,266,0,0"
-            Click="LogOutButton_Click" Width="147"/>
-        <Image Margin="426,75,126,40" Source="/logo.png" Stretch="Fill" Grid.Row="1"/>
-        <Button x:Name="ApplicationButton"
-            Content="Заявки"
-            Grid.Row="1"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left"
-            Margin="50,10,0,0"
-            Click="ApplicationButton_Click" Width="147"/>
+        <!-- Панель кнопок слева -->
+        <StackPanel Grid.Column="0" Background="#F5F5F5">
+            <Button x:Name="ApplicationButton" Content="Заявки" Width="200" Height="50" Margin="10,20,10,5" Click="ApplicationButton_Click"/>
+            <Button x:Name="ListHousingStockButton" Content="Жилой фонд" Width="200" Height="50" Margin="10,5" Click="ListHousingStockButton_Click"/>
+            <Button x:Name="ReportButton" Content="Отчеты" Width="200" Height="50" Margin="10,5" Click="ReportButton_Click"/>
+            <Button x:Name="ArrearsButton" Content="Задолженности" Width="200" Height="50" Margin="10,5" Click="ArrearsButton_Click"/>
+            <Button x:Name="LogOutButton" Content="Выйти" Width="200" Height="50" Margin="10,150,10,10" Background="#FF6B6B" Foreground="White" Click="LogOutButton_Click"/>
+        </StackPanel>
+
+        <!-- Логотип справа -->
+        <Image Grid.Column="1" Source="/logo.png" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="400"/>
     </Grid>
 </Window>

@@ -95,10 +95,10 @@ namespace DemoYP0101
             {
                 try
                 {
-                    // Изменить статус на "Выполнена"
+                    
                     selectedApplication.ExecutorId = 2;
                     context.SaveChanges();
-                    LoadApplications(); // Обновить список
+                    LoadApplications(); 
                     MessageBox.Show("Заявка переведена в выполненные", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }

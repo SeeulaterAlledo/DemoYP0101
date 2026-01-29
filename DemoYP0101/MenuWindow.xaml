@@ -21,7 +21,7 @@
     Margin="50,0,0,0"
     Click="ListHousingStockButton_Click" Width="147"/>
         <Button x:Name="ArrearsButton"
-    Content="Задолжности"
+    Content="Задолженности"
     Grid.Row="1"
     VerticalAlignment="Top"
     HorizontalAlignment="Left"

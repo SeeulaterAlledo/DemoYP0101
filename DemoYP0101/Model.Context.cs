@@ -42,6 +42,7 @@ namespace DemoYP0101
         public DbSet<ListHousingStock> ListHousingStock { get; set; }
         public DbSet<PaymentReport> PaymentReport { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Users> Users { get; set; }
     }
 }

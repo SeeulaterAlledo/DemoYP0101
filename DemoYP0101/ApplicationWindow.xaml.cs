@@ -21,6 +21,8 @@ namespace DemoYP0101
     {
         private Entities context;
         private bool showHistory = false;
+        private string addressFilter = "";
+        private string applicantFilter = "";
 
         public ApplicationWindow()
         {
@@ -33,27 +35,47 @@ namespace DemoYP0101
         {
             try
             {
-                var applicationsQuery = context.Applications
-                    .Include("ListHousingStock")  
-                    .Include("Executor")          
-                    .Include("Users");            
+                // Получаем базовый запрос
+                IQueryable<Applications> applicationsQuery = context.Applications
+                    .Include("ListHousingStock")
+                    .Include("Executor")
+                    .Include("Users");
 
+                // Фильтрация по статусу (текущие/история)
                 if (showHistory)
                 {
-                    
-                    ApplicationsGrid.ItemsSource = applicationsQuery
-                        .Where(a => a.ExecutorId == 2)
-                        .OrderByDescending(a => a.Id)
-                        .ToList();
+                    applicationsQuery = applicationsQuery
+                        .Where(a => a.ExecutorId == 2);
                 }
                 else
                 {
-                    
-                    ApplicationsGrid.ItemsSource = applicationsQuery
-                        .Where(a => a.ExecutorId == 1)
-                        .OrderByDescending(a => a.Id)
-                        .ToList();
+                    applicationsQuery = applicationsQuery
+                        .Where(a => a.ExecutorId == 1);
                 }
+
+                // Применяем фильтр по адресу (регистронезависимый поиск)
+                if (!string.IsNullOrWhiteSpace(addressFilter))
+                {
+                    applicationsQuery = applicationsQuery
+                        .Where(a => a.ListHousingStock.Adress.ToLower()
+                                    .Contains(addressFilter.ToLower()));
+                }
+
+                // Применяем фильтр по заявителю (регистронезависимый поиск)
+                if (!string.IsNullOrWhiteSpace(applicantFilter))
+                {
+                    applicationsQuery = applicationsQuery
+                        .Where(a => a.Users.Name.ToLower()
+                                    .Contains(applicantFilter.ToLower()));
+                }
+
+                // Сортируем и загружаем данные
+                ApplicationsGrid.ItemsSource = applicationsQuery
+                    .OrderByDescending(a => a.Id)
+                    .ToList();
+
+                // Обновляем статусную строку (опционально)
+                UpdateStatusBar();
             }
             catch (Exception ex)
             {
@@ -62,6 +84,38 @@ namespace DemoYP0101
             }
         }
 
+        private void UpdateStatusBar()
+        {
+            int count = (ApplicationsGrid.ItemsSource as System.Collections.IList)?.Count ?? 0;
+
+            // Если нужно добавить статусную строку, можно использовать TextBlock в XAML
+            // StatusTextBlock.Text = $"Найдено заявок: {count}";
+        }
+
+        // Обработчик изменения текста в полях фильтрации
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Обновляем фильтры
+            addressFilter = AddressFilterTextBox.Text?.Trim() ?? "";
+            applicantFilter = ApplicantFilterTextBox.Text?.Trim() ?? "";
+
+            // Перезагружаем данные с фильтрами
+            LoadApplications();
+        }
+
+        // Кнопка очистки фильтров
+        private void ClearFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddressFilterTextBox.Text = "";
+            ApplicantFilterTextBox.Text = "";
+
+            // Сброс фильтров и загрузка данных
+            addressFilter = "";
+            applicantFilter = "";
+            LoadApplications();
+        }
+
+        // Остальные методы остаются без изменений
         private void CurrentButton_Click(object sender, RoutedEventArgs e)
         {
             showHistory = false;
@@ -80,11 +134,10 @@ namespace DemoYP0101
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            
             var addWindow = new AddApplicationWindow();
             if (addWindow.ShowDialog() == true)
             {
-                LoadApplications(); 
+                LoadApplications();
             }
         }
 
@@ -95,10 +148,9 @@ namespace DemoYP0101
             {
                 try
                 {
-                    
                     selectedApplication.ExecutorId = 2;
                     context.SaveChanges();
-                    LoadApplications(); 
+                    LoadApplications();
                     MessageBox.Show("Заявка переведена в выполненные", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }

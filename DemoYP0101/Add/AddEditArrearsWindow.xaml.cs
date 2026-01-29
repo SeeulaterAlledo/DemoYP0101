@@ -97,7 +97,24 @@ namespace DemoYP0101
                     MessageBox.Show("Введите корректные числовые значения для задолженностей");
                     return;
                 }
+                if (!PhoneTextBox.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Номер телефона должен содержать только цифры", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    PhoneTextBox.Focus();
+                    PhoneTextBox.SelectAll();
+                    return;
+                }
 
+                // Дополнительная проверка длины (пример)
+                if (PhoneTextBox.Text.Length < 10)
+                {
+                    MessageBox.Show("Номер телефона должен содержать не менее 10 цифр", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    PhoneTextBox.Focus();
+                    PhoneTextBox.SelectAll();
+                    return;
+                }
                 if (_arrearToEdit == null)
                 {
                     
